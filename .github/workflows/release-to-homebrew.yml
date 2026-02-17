@@ -55,13 +55,17 @@ jobs:
           git commit -m "test-sharp: update to ${{ steps.src.outputs.tag }}"
           git push -u origin "$BRANCH"
 
-          gh pr create \
+          # Create PR and capture PR number
+          PR_NUMBER=$(gh pr create \
             --repo mad0x20wizard/homebrew-test \
             --head "$BRANCH" \
             --base main \
             --title "test-sharp ${{ steps.src.outputs.tag }}" \
-            --body "Automated update from mad0x20wizard/test-sharp tag ${{ steps.src.outputs.tag }}."
+            --body "Automated update from mad0x20wizard/test-sharp tag ${{ steps.src.outputs.tag }}." \
+            --json number \
+            --jq .number)
 
-          # Optional: add pr-pull label from here instead of auto-label workflow in tap repo
-          PR_URL="$(gh pr view --repo mad0x20wizard/homebrew-test --json url -q .url)"
-          gh pr edit "$PR_URL" --add-label "pr-pull"
+          # Add pr-pull label
+          gh pr edit "$PR_NUMBER" \
+            --repo mad0x20wizard/homebrew-test \
+            --add-label "pr-pull"
