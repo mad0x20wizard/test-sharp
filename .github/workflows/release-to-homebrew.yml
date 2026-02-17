@@ -41,6 +41,9 @@ jobs:
 
           git -C tap diff -- "$FORMULA"
 
+      - name: Set up git
+        uses: Homebrew/actions/git-user-config@main
+
       - name: Create PR in tap repo
         env:
           GH_TOKEN: ${{ secrets.TAP_PAT }}
