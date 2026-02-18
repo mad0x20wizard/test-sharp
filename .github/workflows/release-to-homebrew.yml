@@ -7,76 +7,12 @@ on:
 jobs:
   bump-tap:
     runs-on: ubuntu-22.04
-    permissions:
-      contents: read
 
     steps:
-
       - name: Update Homebrew formula
         uses: dawidd6/action-homebrew-bump-formula@v7
         with:
-          # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{ secrets.TAP_PAT }}
-          no_fork: true
           tap: mad0x20wizard/homebrew-test
           formula: test-sharp
-
-      # - name: Compute tarball SHA256
-      #   id: src
-      #   run: |
-      #     TAG="${GITHUB_REF_NAME}"
-      #     URL="https://github.com/mad0x20wizard/test-sharp/archive/refs/tags/${TAG}.tar.gz"
-      #     echo "url=$URL" >> "$GITHUB_OUTPUT"
-      #     curl -L "$URL" -o src.tgz
-      #     SHA="$(sha256sum src.tgz | awk '{print $1}')"
-      #     echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-      #     echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      # - name: Checkout tap repo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: mad0x20wizard/homebrew-test
-      #     token: ${{ secrets.TAP_PAT }}
-      #     path: tap
-
-      # - name: Set up git
-      #   uses: Homebrew/actions/git-user-config@main
-
-
-
-      # - name: Update formula url + sha256
-      #   run: |
-      #     FORMULA="tap/Formula/test-sharp.rb"
-
-      #     # Update the url and sha256 lines (assumes they each appear once)
-      #     sed -i \
-      #       -e "s|^  url \".*\"|  url \"${{ steps.src.outputs.url }}\"|" \
-      #       -e "s|^  sha256 \".*\"|  sha256 \"${{ steps.src.outputs.sha }}\"|" \
-      #       "$FORMULA"
-
-      #     git -C tap diff -- "$FORMULA"
-
-
-      # - name: Create PR in tap repo
-      #   env:
-      #     GH_TOKEN: ${{ secrets.TAP_PAT }}
-      #   run: |
-      #     BRANCH="test-sharp-${{ steps.src.outputs.tag }}"
-      #     cd tap
-      #     git checkout -b "$BRANCH"
-      #     git add Formula/test-sharp.rb
-      #     git commit -m "test-sharp: update to ${{ steps.src.outputs.tag }}"
-      #     git push -u origin "$BRANCH"
-
-      #     # gh pr create outputs the PR URL; capture it
-      #     PR_URL="$(gh pr create \
-      #       --repo mad0x20wizard/homebrew-test \
-      #       --head "$BRANCH" \
-      #       --base main \
-      #       --title "test-sharp ${{ steps.src.outputs.tag }}" \
-      #       --body "Automated update from mad0x20wizard/test-sharp tag ${{ steps.src.outputs.tag }}.")"
-
-      #     echo "Created PR: $PR_URL"
-
-      #     # Label it (no --repo needed if PR_URL is a full URL, but it's fine either way)
-      #     gh pr edit "$PR_URL" --add-label "pr-pull"
+          no_fork: true
