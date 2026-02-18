@@ -1,4 +1,4 @@
-name: Update Homebrew tap
+name: Update Homebrew tap (fast)
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 jobs:
   bump-tap:
     runs-on: ubuntu-22.04
-    
+
     permissions:
       contents: read
 
