@@ -7,7 +7,9 @@ on:
 jobs:
   bump-tap:
     runs-on: ubuntu-22.04
-
+    
+    if: ${{ !contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') }}
+    
     steps:
       - name: Update Homebrew formula
         uses: dawidd6/action-homebrew-bump-formula@v7
