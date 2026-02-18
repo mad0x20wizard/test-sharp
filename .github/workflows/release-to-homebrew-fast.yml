@@ -67,4 +67,4 @@ jobs:
           echo "Created PR: $PR_URL"
 
           # Label it (no --repo needed if PR_URL is a full URL, but it's fine either way)
-          gh pr edit "$PR_URL" --add-label "pr-pull"
+          # gh pr edit "$PR_URL" --add-label "pr-pull"
