@@ -26,7 +26,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: mad0x20wizard/homebrew-test
-          token: ${{ secrets.TAP_PAT }}
           path: tap
 
       - name: Update formula url + sha256
